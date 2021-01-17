@@ -1,11 +1,15 @@
 <?php
-
+    require 'class/usuario.php';
     require_once("config.php");
     
-    $sql = new sql();
-    $users = $sql->select("SELECT * FROM cliente");
+    
+    // $sql = new Sql();
+    // $users = $sql->select("SELECT * FROM tb_usuario");
+    // echo json_encode($users);
 
-    echo json_encode($users);
 
+   $row = new Usuario();
+     $row->loadById(1);
+    echo $row;
 
 ?>
