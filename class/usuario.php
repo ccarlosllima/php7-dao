@@ -1,22 +1,22 @@
 <?php
-    require 'sql.php';
+    require "sql.php";
     class Usuario{
         private $idusuario;
         private $login;
         private $senha;
         private $dtcadastro;
 
-        public function getIdusuario(){
+        public function getIdUsuario(){
             return $this->idusuario;
         }
-        public function setIdusuario($id){
-            $this->idusuario = $id;
+        public function setIdUsuario($value){
+            $this->idusuario = $value;
         }
         public function getLogin(){
-          return  $this->$login; 
+            return $this->login;
         }
-        public function setLogin($loginUsuario){
-            $this->login = $loginUsuario;
+        public function setLogin($value){
+            $this->login = $value;
         }
         public function getSenha(){
             return $this->senha;
@@ -30,27 +30,30 @@
         public function setDtcadastro($data){
             $this->dtcadastro = $data;
         }
-        // função retorna os dados com base em um id
+             // função que passado um ID como parametro, ele retorna todos os dados refernete a esse ID!
+
         public function loadById($id){
-            $sql = new Sql();
-            $result = $sql->select('SELECT * FROM tb_usuario WHERE idusuario :id', array(
-                ":id" => $id
+            $stmt = new Sql();
+            $res = $stmt->select('SELECT * FROM tb_usuario WHERE idusuario = :id',array(
+                ":id" =>$id
             ));
-            if (count($result) > 0) {
-                $row = $result[0];
-                $this->setIdusuario($row['idusuario']);
-                $this->setLogin($row['login']);
-                $this->setSenha($row['senha']);
-                $this->setDtcadastro(new DateTime(['dtcadastro'])); 
-            }
-           
-        }
+            // Percorre a tabela e atribui os valores encontrados nos atributos da classe.
+            foreach ($res as $value) {   
+                if (count($value) > 0) { 
+                    $this->setIdUsuario($value['idusuario']);
+                    $this->setLogin($value['login']);
+                    $this->setSenha($value['senha']);
+                    $this->setDtcadastro($value['dtcadastro']);
+                }            
+            }      
+        } 
+        // tranforma os dados em string e apresenta np formato JSON.   
         public function __toString(){
             return json_encode(array(
-                "idusuario" => $this->getIdusuario(),
-                "login" => $this->getLogin(),
-                "senha" => $this->getSenha(),
-                "dtcadastro" =>$this->getDtcadastro()//->format("d/m/y: H:i:s")
+                "idusuario" =>$this->getIdusuario(),
+                "login" =>$this->getLogin(),
+                "senha" =>$this->getSenha(),
+                "dtcadastro" => $this->getDtcadastro()
             ));
         }
     }
