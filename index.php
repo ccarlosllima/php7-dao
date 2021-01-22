@@ -3,12 +3,14 @@
     require 'class/cliente.php';
    require_once("config.php");
   
-
-    $carlos = new Usuario();
-
-    $carlos->loadById(1);
-    echo $carlos;
-
     // ---------------------------------------------------------
+    // $us = new Usuario();
+    // $us->loadById(1);
+    // echo $us;
 
+    #-----------------------------------------------------------
+
+    $list = Usuario::getList();
+    echo json_encode($list);
+    // var_dump($list);
 ?>

@@ -30,14 +30,15 @@
         public function setDtcadastro($data){
             $this->dtcadastro = $data;
         }
-             // função que passado um ID como parametro, ele retorna todos os dados refernete a esse ID!
 
-        public function loadById($id){
+      //  função que passado um ID como parametro, ele retorna todos os dados refernete a esse ID!
+        
+      public function loadById($id){
             $stmt = new Sql();
             $res = $stmt->select('SELECT * FROM tb_usuario WHERE idusuario = :id',array(
                 ":id" =>$id
             ));
-            // Percorre a tabela e atribui os valores encontrados nos atributos da classe.
+            // Percorre a tabela e atribui os valores encontrados nos atributos da classe. 
             foreach ($res as $value) {   
                 if (count($value) > 0) { 
                     $this->setIdUsuario($value['idusuario']);
@@ -47,8 +48,16 @@
                 }            
             }      
         } 
-        // tranforma os dados em string e apresenta np formato JSON.   
-        public function __toString(){
+        //  Retorna uma lista de usuario
+        public static function getList(){
+            $list = new Sql();
+            return $list->select('SELECT * FROM tb_usuario');
+            
+        }
+        
+        //tranforma os dados em string e apresenta np formato JSON.   
+       
+       public function __toString(){
             return json_encode(array(
                 "idusuario" =>$this->getIdusuario(),
                 "login" =>$this->getLogin(),
@@ -56,6 +65,8 @@
                 "dtcadastro" => $this->getDtcadastro()
             ));
         }
+        
+              
     }
     
 
