@@ -29,8 +29,16 @@
 
     /*          ATUALIZA REGISTRO          */
     #---------------------------------------
+    // $usuario = new Usuario();
+    // $usuario->loadById(1);
+    // $usuario->update('$%$#%heko','20/01/2021');
+    // echo $usuario;
+
+
+    /**         DELETA REGISTROS         */
+    #--------------------------------------
     $usuario = new Usuario();
     $usuario->loadById(1);
-    $usuario->update('$%$#%heko','20/01/2021');
+    $usuario->delete();
     echo $usuario;
 ?>

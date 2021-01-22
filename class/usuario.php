@@ -100,6 +100,17 @@
 
 
         }
+        // Função que deleta registros do banco de dados
+        public function delete(){
+            $sql = new Sql();
+            $results = $sql->query('DELETE FROM tb_usuario WHERE idusuario = :id',array(
+                ':id' => $this->getIdUsuario()
+            ));
+            $this->setIdUsuario(0);
+            $this->setLogin('');
+            $this->setSenha('');
+            $this->setDtcadastro(new DateTime());
+        }
 
        //tranforma os dados em string e apresenta np formato JSON.   
        public function __toString(){
