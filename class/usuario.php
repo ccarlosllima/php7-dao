@@ -38,16 +38,12 @@
             $res = $stmt->select('SELECT * FROM tb_usuario WHERE idusuario = :id',array(
                 ":id" =>$id
             ));
-            // Percorre a tabela e atribui os valores encontrados nos atributos da classe. 
-            foreach ($res as $value) {   
-                if (count($value) > 0) { 
-
-                    $this->setIdUsuario($value['idusuario']);
-                    $this->setLogin($value['login']);
-                    $this->setSenha($value['senha']);
-                    $this->setDtcadastro($value['dtcadastro']);
-                }            
-            }      
+            
+            if (count($res) > 0) {
+                $row = $res[0];
+                $this->setData($row);
+            }                    
+                
         } 
         //  Retorna uma lista de usuario
         public static function getList(){
@@ -62,12 +58,31 @@
                 ':idusuario' => $id,
                 ':senha' => $senha
             ));
-            if ($res > 0) {
-                echo json_encode($res);
+            if (count($res) > 0) {
+                $row = $res[0];
+                $this->setData($row);
             }
             else {
-                throw new Exception("erro ao fazer login");            
+                throw new Exception("Erro ao fazer login");            
             }
+        }
+        public function insert(){
+            $sql = new Sql();
+            $res = $sql->select("CALL sp_usuario_insert(:login, :senha)",array(
+                ":login" => $this->getLogin(),
+                ":senha" => $this->getSenha()
+            ));
+            if (count($res) > 0) {
+                $this->setData($res);
+            }
+
+        }
+
+        public function setData($data){
+            $this->setIdUsuario($data['idusuario']);
+            $this->setLogin($data['login']);
+            $this->setSenha($data['senha']);
+            $this->setDtcadastro($data['dtcadastro']);
         }
         
         //tranforma os dados em string e apresenta np formato JSON.   

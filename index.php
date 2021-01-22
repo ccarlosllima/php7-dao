@@ -10,11 +10,17 @@
 
     #-----------------------------------------------------------
 
-    $list = Usuario::getList();
-    echo json_encode($list);
+    // $list = Usuario::getList();
+    // echo json_encode($list);
 
     
     #----------------------------------------------------------
     // $user = new Usuario();
-    // $user->serch(2,4);
+    // $user->serch(2,8744);
+    // echo $user;
+    $insert = new Usuario();
+    $insert->setLogin('luiz andrade');
+    $insert->setSenha(1452);
+    $insert->insert();
+    echo $insert;
 ?>
