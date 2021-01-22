@@ -12,5 +12,9 @@
 
     $list = Usuario::getList();
     echo json_encode($list);
-    // var_dump($list);
+
+    
+    #----------------------------------------------------------
+    // $user = new Usuario();
+    // $user->serch(2,4);
 ?>

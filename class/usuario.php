@@ -41,6 +41,7 @@
             // Percorre a tabela e atribui os valores encontrados nos atributos da classe. 
             foreach ($res as $value) {   
                 if (count($value) > 0) { 
+
                     $this->setIdUsuario($value['idusuario']);
                     $this->setLogin($value['login']);
                     $this->setSenha($value['senha']);
@@ -53,6 +54,20 @@
             $list = new Sql();
             return $list->select('SELECT * FROM tb_usuario');
             
+        }
+        // recebe com parametro um id e uma senha e retorna os registros referente a esse usuario
+        public function serch($id,$senha){
+            $sql = new Sql();
+            $res = $sql->select('SELECT * FROM tb_usuario WHERE  idusuario = :idusuario AND senha = :senha',array(
+                ':idusuario' => $id,
+                ':senha' => $senha
+            ));
+            if ($res > 0) {
+                echo json_encode($res);
+            }
+            else {
+                throw new Exception("erro ao fazer login");            
+            }
         }
         
         //tranforma os dados em string e apresenta np formato JSON.   
