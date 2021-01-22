@@ -66,6 +66,7 @@
                 throw new Exception("Erro ao fazer login");            
             }
         }
+        // insere novo usuario disparando uma rotina no banco de dados
         public function insert(){
             $sql = new Sql();
             $res = $sql->select("CALL sp_usuario_insert(:login, :senha)",array(
@@ -84,9 +85,23 @@
             $this->setSenha($data['senha']);
             $this->setDtcadastro($data['dtcadastro']);
         }
-        
-        //tranforma os dados em string e apresenta np formato JSON.   
+
+        // Atualiza o registro nos campos data e senha
        
+        public function update($senha , $date){
+            $this->setSenha($senha);
+            $this->setDtcadastro($date);
+            $sql = new Sql();
+            $sql->query("UPDATE tb_usuario SET dtcadastro = :dt, senha = :senha WHERE idusuario = :id",array(
+                ':dt' => $this->getDtcadastro(),
+                ':senha' => $this->getSenha(),
+                ':id' => $this->getIdUsuario()
+            ));
+
+
+        }
+
+       //tranforma os dados em string e apresenta np formato JSON.   
        public function __toString(){
             return json_encode(array(
                 "idusuario" =>$this->getIdusuario(),

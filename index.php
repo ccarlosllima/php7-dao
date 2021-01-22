@@ -18,9 +18,19 @@
     // $user = new Usuario();
     // $user->serch(2,8744);
     // echo $user;
-    $insert = new Usuario();
-    $insert->setLogin('luiz andrade');
-    $insert->setSenha(1452);
-    $insert->insert();
-    echo $insert;
+
+    /*           INSETE REGISTRO          */            
+    #--------------------------------------
+    // $insert = new Usuario();
+    // $insert->setLogin('luiz andrade');
+    // $insert->setSenha(1452);
+    // $insert->insert();
+    // echo $insert;
+
+    /*          ATUALIZA REGISTRO          */
+    #---------------------------------------
+    $usuario = new Usuario();
+    $usuario->loadById(1);
+    $usuario->update('$%$#%heko','20/01/2021');
+    echo $usuario;
 ?>
